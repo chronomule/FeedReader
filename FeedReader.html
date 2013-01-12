@@ -1,0 +1,670 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Feed Reader</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript" src="jquery-1.2.6.min.js"></script>
+
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+
+$(document).ready(function(){
+
+	var test=$('#tabs li').find("a").attr("href");
+	MyData.selected_tab=test;
+	
+	$("#tabs li").click(function() {
+		//	First remove class "active" from currently active tab
+		$("#tabs li").removeClass('active');
+
+		//	Now add class "active" to the selected/clicked tab
+		$(this).addClass("active");
+
+		//	Hide all tab content
+		$(".tab_content").hide();
+
+		//	Here we get the href value of the selected tab
+		MyData.selected_tab = $(this).find("a").attr("href");
+
+		//	Show the selected tab content
+		$(MyData.selected_tab).fadeIn();
+
+		
+		//alert(MyData.selected_tab);
+		
+		
+		//	At the end, we add return false so that the click on the link is not executed
+		return false;
+		
+	});
+	load();
+	load1();
+	load2();
+	load3();
+});
+
+
+
+
+	function load(){
+		$.ajax({ 
+			 url: "feed.xml",
+			 dataType: "xml",
+			 success: function(data) {
+		 
+			  $('#tab1').find('ul').children().remove();
+			  
+			  
+			  
+			  var cur_page= $("#page_current").html();
+			  
+			 
+			  
+			    var info = '<li><div id="shadowbox_1"><div id="contentbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("heading").text()+'</div></div><div id="shadowbox_2"><div id="contentbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("heading").text()+'</div></div><div id="shadowbox_3"><div id="contentbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("heading").text()+'</div></div></li>';
+			   
+			   var cont = '<li><div id="shadowbox_1"><div id="textbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("content").text()+'</div></div><div id="shadowbox_2"><div id="textbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("content").text()+'</div></div><div id="shadowbox_3"><div id="textbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("content").text()+'</div></div></li>';
+			   
+			   var img = '<li><div id="shadowbox_1"><div id="imagebox_1"><img src="'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("image").text()+'"></div></div><div id="shadowbox_2"><div id="imagebox_2"><img src="'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("image").text()+'"></div></div><div id="shadowbox_3"><div id="imagebox_3"><img src="'+$(data).find("item:nth-child("+(3*cur_page)+")").find("image").text()+'"></div></div></li>';
+			   
+			   
+			   $(".tab_content ul").append(img);
+			   $(".tab_content ul").append(cont);
+			   $(".tab_content ul").append(info); 
+		 
+			  }
+		 
+			 });
+	}
+	
+	function load1(){
+		$.ajax({ 
+			 url: "feed1.xml",
+			 dataType: "xml",
+			 success: function(data) {
+		 
+
+			  $('#tab2').find('ul').children().remove();
+			   
+			  var cur_page= $("#page_current1").html();
+			  
+			 
+			  
+			    var info = '<li><div id="shadowbox_1"><div id="contentbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("heading").text()+'</div></div><div id="shadowbox_2"><div id="contentbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("heading").text()+'</div></div><div id="shadowbox_3"><div id="contentbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("heading").text()+'</div></div></li>';
+			   
+			   var cont = '<li><div id="shadowbox_1"><div id="textbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("content").text()+'</div></div><div id="shadowbox_2"><div id="textbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("content").text()+'</div></div><div id="shadowbox_3"><div id="textbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("content").text()+'</div></div></li>';
+			   
+			   var img = '<li><div id="shadowbox_1"><div id="imagebox_1"><img src="'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("image").text()+'"></div></div><div id="shadowbox_2"><div id="imagebox_2"><img src="'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("image").text()+'"></div></div><div id="shadowbox_3"><div id="imagebox_3"><img src="'+$(data).find("item:nth-child("+(3*cur_page)+")").find("image").text()+'"></div></div></li>';
+			   
+			   
+			   $(".tab_content ul").append(img);
+			   $(".tab_content ul").append(cont);
+			   $(".tab_content ul").append(info); 
+		 
+			  }
+		 
+			 });
+	}
+	
+	function load2(){
+		$.ajax({ 
+			 url: "feed2.xml",
+			 dataType: "xml",
+			 success: function(data) {
+		 
+			  
+			   $('#tab3').find('ul').children().remove();
+			  var cur_page= $("#page_current2").html();
+			  
+			 
+			  
+			    var info = '<li><div id="shadowbox_1"><div id="contentbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("heading").text()+'</div></div><div id="shadowbox_2"><div id="contentbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("heading").text()+'</div></div><div id="shadowbox_3"><div id="contentbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("heading").text()+'</div></div></li>';
+			   
+			   var cont = '<li><div id="shadowbox_1"><div id="textbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("content").text()+'</div></div><div id="shadowbox_2"><div id="textbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("content").text()+'</div></div><div id="shadowbox_3"><div id="textbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("content").text()+'</div></div></li>';
+			   
+			  var img = '<li><div id="shadowbox_1"><div id="imagebox_1"><img src="'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("image").text()+'"></div></div><div id="shadowbox_2"><div id="imagebox_2"><img src="'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("image").text()+'"></div></div><div id="shadowbox_3"><div id="imagebox_3"><img src="'+$(data).find("item:nth-child("+(3*cur_page)+")").find("image").text()+'"></div></div></li>';
+			   
+			   
+			   $(".tab_content ul").append(img);
+			   $(".tab_content ul").append(cont);
+			   $(".tab_content ul").append(info); 
+		 
+			  }
+		 
+			 });
+	}
+	
+	function load3(){
+		$.ajax({ 
+			 url: "feed3.xml",
+			 dataType: "xml",
+			 success: function(data) {
+		 
+			  
+			  $('#tab4').find('ul').children().remove();
+			  var cur_page= $("#page_current3").html();
+			  
+			 
+			  
+			    var info = '<li><div id="shadowbox_1"><div id="contentbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("heading").text()+'</div></div><div id="shadowbox_2"><div id="contentbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("heading").text()+'</div></div><div id="shadowbox_3"><div id="contentbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("heading").text()+'</div></div></li>';
+			   
+			   var cont = '<li><div id="shadowbox_1"><div id="textbox_1">'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("content").text()+'</div></div><div id="shadowbox_2"><div id="textbox_2">'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("content").text()+'</div></div><div id="shadowbox_3"><div id="textbox_3">'+$(data).find("item:nth-child("+(3*cur_page)+")").find("content").text()+'</div></div></li>';
+			   
+			   var img = '<li><div id="shadowbox_1"><div id="imagebox_1"><img src="'+$(data).find("item:nth-child("+(3*cur_page-2)+")").find("image").text()+'"></div></div><div id="shadowbox_2"><div id="imagebox_2"><img src="'+$(data).find("item:nth-child("+(3*cur_page-1)+")").find("image").text()+'"></div></div><div id="shadowbox_3"><div id="imagebox_3"><img src="'+$(data).find("item:nth-child("+(3*cur_page)+")").find("image").text()+'"></div></div></li>';
+			   
+			   
+			   $(".tab_content ul").append(img);
+			   $(".tab_content ul").append(cont);
+			   $(".tab_content ul").append(info); 
+		 
+			  }
+		 
+			 });
+	}
+
+
+	function prev(){
+		var curpage=$("#page_current").html();
+		var totpage=$("#page_total").html();
+		
+		if(curpage>1)
+			{
+			$("#page_current").text(curpage-1);
+			load();
+			}
+	}
+
+	function next(){
+		var curpage=$("#page_current").html();
+		var totpage=$("#page_total").html();
+		
+		if(curpage<totpage)
+			{
+			curpage++;
+			$("#page_current").text(curpage);
+			load();
+			}
+	}
+	
+	function prev1(){
+		var curpage=$("#page_current1").html();
+		var totpage=$("#page_total1").html();
+		
+		if(curpage>1)
+			{
+			$("#page_current1").text(curpage-1);
+			load1();
+			}
+	}
+	
+	function next1(){
+		var curpage=$("#page_current1").html();
+		var totpage=$("#page_total1").html();
+		
+		if(curpage<totpage)
+			{
+			curpage++;
+			$("#page_current1").text(curpage);
+			load1();
+			}
+	}
+	
+	function prev2(){
+		var curpage=$("#page_current2").html();
+		var totpage=$("#page_total2").html();
+		
+		if(curpage>1)
+			{
+			$("#page_current2").text(curpage-1);
+			load2();
+			}
+	}
+	
+	function next2(){
+		var curpage=$("#page_current2").html();
+		var totpage=$("#page_total2").html();
+		
+		if(curpage<totpage)
+			{
+			curpage++;
+			$("#page_current2").text(curpage);
+			load2();
+			}
+	}
+	
+	function prev3(){
+		var curpage=$("#page_current3").html();
+		var totpage=$("#page_total3").html();
+		
+		if(curpage>1)
+			{
+			$("#page_current3").text(curpage-1);
+			load3();
+			}
+	}
+	
+	function next3(){
+		var curpage=$("#page_current3").html();
+		var totpage=$("#page_total3").html();
+		
+		if(curpage<totpage)
+			{
+			curpage++;
+			$("#page_current3").text(curpage);
+			load3();
+			}
+	}
+	
+	function prev_decide() {
+	    
+		if(MyData.selected_tab=="#tab1")
+		{ prev(); }
+		else if(MyData.selected_tab=="#tab2")
+		{ prev1(); }
+		else if(MyData.selected_tab=="#tab3")
+		{ prev2(); }
+		else if(MyData.selected_tab=="#tab4")
+		{ prev3(); }
+		}
+
+		
+		function next_decide() {
+		if(MyData.selected_tab=="#tab1")
+		{ next(); }
+		else if(MyData.selected_tab=="#tab2")
+		{ next1(); }
+		else if(MyData.selected_tab=="#tab3")
+		{ next2(); }
+		else if(MyData.selected_tab	=="#tab4")
+		{ next3(); }
+		}
+		
+		
+	
+	
+
+/* ]]> */
+</script>
+<style type="text/css">
+body {
+	font-size: 100%;
+}
+p {
+	margin: 0;
+	padding: 0;
+}
+#tabs_wrapper {
+	width: 1300px;
+	height:50px;
+	
+}
+#tabs_container {
+    position:absolute;
+    top:85px;
+	border-bottom: 1px solid #ccc;
+}
+#tabs {
+	list-style: none;
+	padding: 5px 0 4px 0;
+	margin: 0 0 0 10px;
+	font: 0.75em arial;
+	
+}
+#tabs li {
+	display: inline;
+}
+#tabs li a {
+
+	border: 1px solid #ccc;
+	padding: 4px 6px;
+	text-decoration: none;
+	background-color: #eeeeee;
+	border-bottom: none;
+	outline: none;
+	
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+}
+#tabs li a:hover {
+	background-color: #dddddd;
+	padding: 4px 6px;
+}
+#tabs li.active a {
+	border-bottom: 1px solid #fff;
+	background-color: #fff;
+	padding: 4px 6px 5px 6px;
+	border-bottom: none;
+}
+#tabs li.active a:hover {
+	background-color: #eeeeee;
+	padding: 4px 6px 5px 6px;
+	border-bottom: none;
+}
+
+
+
+#tabs_content_container {
+    position:absolute;
+    top:110px;
+	border: 1px solid #ccc;
+	border-top: none;
+	padding: 10px;
+	width: 1300px;
+	height:500px;
+	-webkit-border-radius: opx opx 5px 5px;
+    border-radius: opx opx 5px 5px;
+	-webkit-box-shadow: 0px 7px 3px 3px ;
+    box-shadow: 0px 7px 3px 3px ; 
+}
+.tab_content {
+	display: none;
+}
+
+#shadowbox_1 {
+position:absolute;
+left:50px;
+top:70px;
+height:120px;
+width:1200px;
+-webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+-webkit-box-shadow: 1px 2px 3px 3px ;
+box-shadow: 1px 2px 3px 3px ; 
+}
+
+#shadowbox_2 {
+position:absolute;
+left:50px;
+height:120px;
+width:1200px;
+top:230px;
+-webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+-webkit-box-shadow: 1px 2px 3px 3px ;
+box-shadow: 1px 2px 3px 3px ; 
+}
+
+#shadowbox_3 {
+position:absolute;
+left:50px;
+top:390px;
+height:120px;
+width:1200px;
+-webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+-webkit-box-shadow: 1px 2px 3px 3px ;
+box-shadow: 1px 2px 3px 3px ; 
+}
+
+#pagination_class_display {
+position:absolute;
+top:10px;
+left:500px;
+height:20px;
+width:400px;
+}
+
+
+#paging{
+position:absolute;
+top:0px;
+left:10px;
+height:20px;
+width:40px;
+}
+ #page_current {
+ position:absolute;
+ left:500px;
+ }
+ 
+#page_current1 {
+ position:absolute;
+ left:500px;
+ }
+ 
+#page_current2{
+ position:absolute;
+ left:500px;
+ }
+ 
+#page_current3{
+ position:absolute;
+ left:500px;
+ }
+ 
+#slash {
+position:absolute;
+left:520px;
+top:0px;
+}
+ 
+ #page_total {
+ position:absolute;
+ top:0px;
+ left:530px;
+ }
+ 
+ #page_total1 {
+ position:absolute;
+ top:0px;
+ left:530px;
+ }
+ 
+ #page_total2 {
+ position:absolute;
+ top:0px;
+ left:530px;
+ }
+ 
+ #page_total3 {
+ position:absolute;
+ top:0px;
+ left:530px;
+ }
+ 
+#Prev {
+position:absolute;
+left:430px;
+top:0px;
+}
+
+#Next {
+position:absolute;
+left:560px;
+top:0px;
+}
+
+#imagebox_1 {
+position:absolute;
+left:5px;
+top:5px;
+width:130px;
+height:105px;
+-webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+-webkit-box-shadow: 1px 2px 3px 1px ;
+box-shadow: 1px 2px 3px 1px ; 
+}
+
+#contentbox_1 {
+position:absolute;
+left:150px;
+top:5px;
+width:1040px;
+height:20px;
+
+}
+
+#imagebox_2 {
+position:absolute;
+left:5px;
+top:5px;
+width:130px;
+height:105px;
+-webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+-webkit-box-shadow: 1px 2px 3px 1px ;
+box-shadow: 1px 2px 3px 1px ; 
+}
+
+#contentbox_2 {
+position:absolute;
+left:150px;
+top:5px;
+width:1040px;
+height:20px;
+
+}
+
+#imagebox_3 {
+position:absolute;
+left:5px;
+top:5px;
+width:130px;
+height:105px;
+-webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+-webkit-box-shadow: 1px 2px 3px 3px ;
+box-shadow: 1px 2px 3px 3px ; 
+
+}
+
+#contentbox_3 {
+position:absolute;
+left:150px;
+top:5px;
+width:1040px;
+height:20px;
+ 
+}
+
+#textbox_1 {
+position:absolute;
+left:150px;
+top:35px;
+width:1040px;
+height:80px;
+
+}
+
+#textbox_2 {
+position:absolute;
+top:35px;
+left:150px;
+width:1040px;
+height:80px;
+
+}
+
+
+#textbox_3 {
+position:absolute;
+top:35px;
+left:150px;
+width:1040px;
+height:80px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+<body>
+<script type="text/javascript">
+var MyData = {};
+</script>
+<div class=Acme_header>
+<style type="text/css">
+div.Acme_header{
+position:absolute;
+width:1350px;
+height:75px;
+background-color:#00FFFF;
+font-size:30px;
+
+}
+</style>
+ACME Feed Reader
+</div>
+
+<div id="tabs_wrapper">
+	<div id="tabs_container">
+		<ul id="tabs">
+			<li class="active"><a href="#tab1" onclick="load()">Feed 1</a></li>
+			<li><a href="#tab2" onclick="load1()">Feed 2</a></li>
+			<li><a href="#tab3" onclick="load2()">Feed 3</a></li>
+			<li><a href="#tab4" onclick="load3()">Feed 4</a></li>
+		</ul>
+	</div>
+	<div id="tabs_content_container">
+		
+		
+	
+		<div id="tab1" class="tab_content" style="display: block;">
+			<div id="paging">
+				<a href="#" id="Prev" onclick="prev_decide()">Previous</a>
+				<div id="page_current">1</div>
+				<div id="slash">/</div>
+				<div id="page_total">5</div>
+				<a href="#" id="Next" onclick="next_decide()">Next</a>
+			</div>
+			<ul type="none">
+			
+			</ul>
+		</div>
+		<div id="tab2" class="tab_content">
+			<div id="paging">
+				<a href="#" id="Prev" onclick="prev_decide()">Previous</a>
+				<div id="page_current1">1</div>
+				<div id="slash">/</div>
+				<div id="page_total1">5</div>
+				<a href="#" id="Next" onclick="next_decide()">Next</a>
+			</div>
+					<ul type="none">
+			
+			</ul>
+			
+		</div>
+		<div id="tab3" class="tab_content">
+			<div id="paging">
+				<a href="#" id="Prev" onclick="prev_decide()">Previous</a>
+				<div id="page_current2">1</div>
+				<div id="slash">/</div>
+				<div id="page_total2">5</div>
+				<a href="#" id="Next" onclick="next_decide()">Next</a>
+			</div>
+			<ul type="none">
+			
+			</ul>
+		</div>
+		<div id="tab4" class="tab_content">
+			<div id="paging">
+				<a href="#" id="Prev" onclick="prev_decide()">Previous</a>
+				<div id="page_current3">1</div>
+				<div id="slash">/</div>
+				<div id="page_total3">5</div>
+				<a href="#" id="Next" onclick="next_decide()">Next</a>
+			</div>
+			
+			<ul type="none">
+			
+			</ul>
+		</div>
+</div>
+
+</body>
+</html>
